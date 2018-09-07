@@ -2,11 +2,15 @@
 
 ## Description
 
-- This is a sample OWIN application that runs OKTA SAML 2.0 Login.
+- This is a sample OWIN application that runs OKTA SAML 2.0 login.
+- Check out [OKTA SAML](https://developer.okta.com/standards/SAML/#planning-for-saml) for more information.
 
 ## Points needed for OWIN to run OKTA SAML 2.0 loging
 
-- need to use cookie own application cookie for authentication, external cookie for OKTA and use Sustainsys.Saml2.Owin middleware
+- OWIN application needs to use 
+  - application cookie for authentication,
+  - external cookie for OKTA info and 
+  - Sustainsys.Saml2.Owin middleware for creating SAML request and processing SAML response
 [Startup.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Startup.cs)
 ```csharp
 public void Configuration(IAppBuilder app)
@@ -21,7 +25,8 @@ public void Configuration(IAppBuilder app)
     app.UseSaml2Authentication(CreateSaml2Options());
 }
 ```
-- After the challenge, external callbakc needs to be called, check if external login is present and sign in with your custom claim
+
+- After the authentication (saml response accepted) challenge, `ExternalLoginCallback` is called then checks if Okta info is present to use for own authentication.
 [AccountController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/AccountController.cs)
 ```csharp
 public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -43,10 +48,11 @@ public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 
     return RedirectToLocal(returnUrl);
 }
-- 
-- Add Authorize attribute to login protected controllers
+```
+
+- Next is to make sure to add `Authorize` attribute to controllers that needs authentication
 [HomeController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/HomeController.cs)
-```casharp
+```csharp
 public class HomeController : Controller
 {
     [Authorize]
@@ -55,6 +61,7 @@ public class HomeController : Controller
         return View();
     }
 - 
+```
 
 ## How to run sample
 
