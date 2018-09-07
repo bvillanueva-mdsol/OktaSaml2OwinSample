@@ -1,5 +1,9 @@
 # OktaSaml2OwinSample
 
+## Description
+
+- This is a sample OWIN application that runs OKTA SAML 2.0 Login.
+
 ## How to run sample
 
 - Create new application integration inside Okta
@@ -42,6 +46,13 @@
   - Choose `I'm an Okta customer adding an internal app`
   - Choose `This is an internal app that we have created`
   - Click `Finish`
+- Assign user/s
+  - Inside the newly created application integration, click `Assignments` tab
+  - Assign users like yourself
+    - Click `Assign`/`Assign to People` button
+    - Click `Assign` button of your user
+    - Click `Save and Go Back`
+    - Click `Done`
 - Get SAML information for the sample app
   - Inside the newly created application integration, click `Sign On` tab
   - Click `View Setup Instructions`
