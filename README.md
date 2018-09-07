@@ -11,7 +11,6 @@
   - application cookie for authentication,
   - external cookie for OKTA info and 
   - Sustainsys.Saml2.Owin middleware for creating SAML request and processing SAML response
-[Startup.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Startup.cs)
 ```csharp
 public void Configuration(IAppBuilder app)
 {
@@ -26,8 +25,7 @@ public void Configuration(IAppBuilder app)
 }
 ```
 
-- After the authentication (saml response accepted) challenge, `ExternalLoginCallback` is called then checks if Okta info is present to use for own authentication.
-[AccountController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/AccountController.cs)
+- After the authentication (saml response accepted) challenge, `ExternalLoginCallback` is called then checks if Okta info is present to use for own authentication
 ```csharp
 public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 {
@@ -51,7 +49,6 @@ public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 ```
 
 - Next is to make sure to add `Authorize` attribute to controllers that needs authentication
-[HomeController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/HomeController.cs)
 ```csharp
 public class HomeController : Controller
 {
