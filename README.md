@@ -4,6 +4,58 @@
 
 - This is a sample OWIN application that runs OKTA SAML 2.0 Login.
 
+## Points needed for OWIN to run OKTA SAML 2.0 loging
+
+- need to use cookie own application cookie for authentication, external cookie for OKTA and use Sustainsys.Saml2.Owin middleware
+[Startup.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Startup.cs)
+```csharp
+public void Configuration(IAppBuilder app)
+{
+    app.UseCookieAuthentication(new CookieAuthenticationOptions
+    {
+        AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+        LoginPath = new PathString("/Account/Login"),
+        AuthenticationMode = AuthenticationMode.Active
+    });
+    app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+    app.UseSaml2Authentication(CreateSaml2Options());
+}
+```
+- After the challenge, external callbakc needs to be called, check if external login is present and sign in with your custom claim
+[AccountController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/AccountController.cs)
+```csharp
+public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+{
+    var loginInfo = await HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync();
+    if (loginInfo == null)
+    {
+        return RedirectToAction("LoginError");
+    }
+
+    var identity = new ClaimsIdentity(loginInfo.ExternalIdentity.Claims,
+        DefaultAuthenticationTypes.ApplicationCookie);
+    var authProps = new AuthenticationProperties
+    {
+        IsPersistent = true,
+        ExpiresUtc = DateTime.UtcNow.AddMinutes(1)
+    };            
+    HttpContext.GetOwinContext().Authentication.SignIn(authProps, identity);
+
+    return RedirectToLocal(returnUrl);
+}
+- 
+- Add Authorize attribute to login protected controllers
+[HomeController.cs](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Controllers/HomeController.cs)
+```casharp
+public class HomeController : Controller
+{
+    [Authorize]
+    public ActionResult Index()
+    {
+        return View();
+    }
+- 
+
 ## How to run sample
 
 - Create new application integration inside Okta
