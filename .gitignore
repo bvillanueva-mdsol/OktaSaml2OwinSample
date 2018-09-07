@@ -1,13 +1,9 @@
-src/*/bin/*
-src/*/obj/*
-tests/*/bin/*
-tests/*/obj/*
-src/*/lib/*
-src/*/wwwroot/lib/*
+OktaSamlSample/bin/*
+OktaSamlSample/obj/*
+OktaSamlSample/lib/*
 *.user
 *.suo
 *.pdb
 .vs/*/*
 .vs/*
-TestResults/
 packages/
