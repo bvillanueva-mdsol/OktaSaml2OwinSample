@@ -3,7 +3,7 @@
 ## How to run sample
 
 - Create new application integration inside Okta
-  - Follow this [guide](todo) to create new application integration
+  - Follow this [guide](#how-to-create-new-application-integration-inside-okta) to create new application integration
     - Please use the value of ApplicationBaseUri in [Web.Config](https://github.com/bvillanueva-mdsol/OktaSaml2OwinSample/blob/master/OktaSamlSample/Web.config) as your base uri in the registration
   - Get the following information from the newly created integration
     - Identity Provider Single Sign-On URL
