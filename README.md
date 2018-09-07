@@ -91,8 +91,10 @@ public class HomeController : Controller
   - Choose Platform: `Web`, Sign on method: `SAML 2.0`
   - Type in App name (any app name would do), click `Next`
   - Type in these information:
-    - Single sign on URL: {base uri (e.g. http://localhost:2687}/saml2/acs
-    - Audience URI (SP Entity ID): {base uri (e.g. http://localhost:2687}/saml2
+    - Single sign on URL: {<base uri>}/saml2/acs
+      - Example: http://localhost:2687/saml2/acs
+    - Audience URI (SP Entity ID): {<base uri>}/saml2
+      - Example: http://localhost:2687/saml2
     - Name ID format: x509SubjectName
     - Attribute Statements:
       - Name: user.email, Value: user.email
