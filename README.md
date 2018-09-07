@@ -5,7 +5,7 @@
 - This is a sample OWIN application that runs OKTA SAML 2.0 login.
 - Check out [OKTA SAML](https://developer.okta.com/standards/SAML/#planning-for-saml) for more information.
 
-## Points needed for OWIN to run OKTA SAML 2.0 loging
+## Points needed for OWIN to run OKTA SAML 2.0 login
 
 - OWIN application needs to use 
   - application cookie for authentication,
